@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AlbumCard = ({ Album, onAddToCart }) => {
-  if (!product) return null;
+const AlbumCard = ({ album, onAddToCart }) => {
+  if (!album) return null;
 
   return (
     <article className="album-card">
@@ -10,22 +10,31 @@ const AlbumCard = ({ Album, onAddToCart }) => {
         <img
           className="album-image"
           src={album.image}
-          alt={album.name}
+          alt={album.title}
           loading="lazy"
         />
       </Link>
       <div className="album-body">
-        <span className="album-category">{album.category}</span>
+        <span className="album-category">{album.genre}</span>
         <h3 className="album-title">
-          <Link to={`/album/${album.id}`}>{album.name}</Link>
+          <Link to={`/album/${album.id}`}>{album.title}</Link>
         </h3>
         <p className="album-price">
           $
           {typeof album.price === "number"
-            ? product.price.toFixed(2)
+            ? album.price.toFixed(2)
             : "Contact For Price"}
         </p>
+        <button
+          className="btn btn-secondary btn-block"
+          type="button"
+          onClick={() => onAddToCart(album)}
+        >
+          Add to Cart
+        </button>
       </div>
     </article>
   );
 };
+
+export default AlbumCard;
