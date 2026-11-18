@@ -20,38 +20,41 @@ Name: Peter Mati
 
 - Open the application on your localhost in a browser.
 
-The project directory will have components, data, and pages folders. The components folder will contain CartDrawer, Navbar, and ProductCard, while the pages folder will contain CatalogPage, CheckoutPage, and ProductDetailPage. The data folder will contain albums.js Finally, App.jsx will bring all of the pieces together.
+The project directory will have components, data, and pages folders. The components folder will contain CartDrawer, Navbar, and AlbumCard, while the pages folder will contain CatalogPage, CheckoutPage, and AlbumDetailPage. The data folder will contain albums.js. Finally, App.jsx will bring all of the pieces together.
 
 2. React Component Hierarchy & State Flow Architecture
 
 ```
-<App /> -> 'src/App.jsx'
-    <Navbar> -> 'src/components/Navbar.jsx'
+<App /> -> 'src/App.jsx' (Owner: cart[Array], isCartOpen[Boolean])
+
+    <Navbar> -> 'src/components/Navbar.jsx' (Props: cartCount[Number], onOpenCart[Function]) (Event: onClick -> onOpenCart)
+
     <Routes> -> 'src/App.jsx'
-        <Route element={<CatalogPage />} path="/"> -> 'src/pages/CatalogPage.jsx'
+
+        <Route element={<CatalogPage />} path="/"> -> 'src/pages/CatalogPage.jsx' (Owner: selectedGenre[String]) (Props: albums[Array], onAddToCart[Function])
             <CatalogHero>
-            <GenreFilterBar>
+            <GenreFilterBar> (Event: onClick -> setSelectedGenre)
             <AlbumGrid>
-                <AlbumCard>
+                <AlbumCard> -> 'src/components/AlbumCard.jsx' (Props: album[Object], onAddToCart[Function]) (Event: onClick -> onAddToCart)
 
-        <Route element={<ProductDetailPage />} path="/album/:albumId"> -> 'src/pages/ProductDetailPage.jsx'
+        <Route element={<AlbumDetailPage />} path="/album/:albumId"> -> 'src/pages/AlbumDetailPage.jsx' (Owner: qty[Number]) (Props: albums[Array], onAddToCart[Function])
             <AlbumInfo>
-            <AlbumQuantity>
-            <AddToCart>
+            <AlbumQuantity> (Event: onChange -> setQty)
+            <AddToCart> (Event: onClick -> onAddToCart)
 
-        <Route element={<CheckoutPage />} path="/checkout"> -> 'src/pages/CheckoutPage.jsx'
+        <Route element={<CheckoutPage />} path="/checkout"> -> 'src/pages/CheckoutPage.jsx' (Owner: isSubmitted[Boolean], formData[Object]) (Props: cart[Array], onClearCart[Function])
             <CheckoutGrid>
-                <CheckoutForm>
+                <CheckoutForm> (Events: onChange -> handleChange, onSubmit -> handleSubmit)
                     <SubmitOrder>
                 <OrderSummaryCard>
             <CheckoutSuccess>
                 <ReturnToHome>
 
-    <CartDrawer> -> 'src/components/CartDrawer.jsx'
+    <CartDrawer> -> 'src/components/CartDrawer.jsx' (Props: cart[Array], isOpen[Boolean], onClose[Function], onUpdateQuantity[Function], onRemove[Function]) (Event: onClick -> onClose)
         <CartItem>
             <ItemInfo>
-            <QuantityControls>
-            <RemoveItem>
+            <QuantityControls> (Event: onClick -> onUpdateQuantity)
+            <RemoveItem> (Event: onClick -> onRemove)
         <Subtotal>
-        <ProceedToCheckout>
+        <ProceedToCheckout> (Event: onClick -> handleProceedToCheckout)
 ```
