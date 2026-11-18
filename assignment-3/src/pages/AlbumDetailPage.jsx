@@ -40,7 +40,7 @@ const AlbumDetailPage = ({ albums, onAddToCart }) => {
           <p className="detail-speed">Speed: {album.specs.speed}</p>
           <div className="stock-tag">
             {album.stock > 0
-              ? `✔️ In Stock (${album.stock} units available)`
+              ? `✅ In Stock (${album.stock} units available)`
               : "Out of Stock"}
           </div>
 
