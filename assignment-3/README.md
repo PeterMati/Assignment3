@@ -1,0 +1,57 @@
+Name: Peter Mati
+
+## Assignment 3A
+
+1. Project Setup & Execution Instructions
+
+- Make sure to have Node.js installed on your system in order to use the package manager (npm). You can download it at nodejs.org.
+  `node -v`
+
+- Clone the repository to your IDE and cd to the root directory.
+  `git clone https://github.com/PeterMati/Assignment3.git`
+  `cd Assignment3`
+  `cd assignment-3`
+
+- Open a new terminal and install dependencies.
+  `npm install`
+
+- After the dependencies are installed, run the application.
+  `npm run dev`
+
+- Open the application on your localhost in a browser.
+
+The project directory will have components, data, and pages folders. The components folder will contain CartDrawer, Navbar, and ProductCard, while the pages folder will contain CatalogPage, CheckoutPage, and ProductDetailPage. The data folder will contain albums.js Finally, App.jsx will bring all of the pieces together.
+
+2. React Component Hierarchy & State Flow Architecture
+
+```
+<App /> -> 'src/App.jsx'
+    <Navbar> -> 'src/components/Navbar.jsx'
+    <Routes> -> 'src/App.jsx'
+        <Route element={<CatalogPage />} path="/"> -> 'src/pages/CatalogPage.jsx'
+            <CatalogHero>
+            <GenreFilterBar>
+            <AlbumGrid>
+                <AlbumCard>
+
+        <Route element={<ProductDetailPage />} path="/album/:albumId"> -> 'src/pages/ProductDetailPage.jsx'
+            <AlbumInfo>
+            <AlbumQuantity>
+            <AddToCart>
+
+        <Route element={<CheckoutPage />} path="/checkout"> -> 'src/pages/CheckoutPage.jsx'
+            <CheckoutGrid>
+                <CheckoutForm>
+                    <SubmitOrder>
+                <OrderSummaryCard>
+            <CheckoutSuccess>
+                <ReturnToHome>
+
+    <CartDrawer> -> 'src/components/CartDrawer.jsx'
+        <CartItem>
+            <ItemInfo>
+            <QuantityControls>
+            <RemoveItem>
+        <Subtotal>
+        <ProceedToCheckout>
+```
